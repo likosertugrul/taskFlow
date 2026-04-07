@@ -452,14 +452,13 @@
   import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
   const firebaseConfig = {
-    apiKey: "AIzaSyBFGLPPOuMSHh0PBHAVfQDoedVuAdseqbc",
-    authDomain: "taskflow-e55d1.firebaseapp.com",
-    projectId: "taskflow-e55d1",
-    storageBucket: "taskflow-e55d1.firebasestorage.app",
-    messagingSenderId: "645960015256",
-    appId: "1:645960015256:web:0dcbec4de2ae2d93ef1fed",
-    measurementId: "G-7R94JBMNFN"
-  };
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
+};
 
   // Firebase'i başlat
   const app = initializeApp(firebaseConfig);
