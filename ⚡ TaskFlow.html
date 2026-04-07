@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>TaskFlow — Smart Task Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="page-landing" class="page active">
+  <div class="landing-bg"></div>
+  <nav class="nav">
+    <div class="nav-logo">⚡ TaskFlow</div>
+    <div class="nav-links">
+      <button class="btn btn-ghost btn-sm" onclick="showPage('login')">Sign In</button>
+      <button class="btn btn-primary btn-sm" onclick="showPage('signup')">Get Started</button>
+    </div>
+  </nav>
+  <div class="hero">
+    <div class="hero-badge"><span></span> CE302 Software Engineering Project</div>
+    <h1>Organize your work.<br><span>Ship faster.</span></h1>
+    <p class="hero-sub">A smart task manager built for teams and individuals. Prioritize, track, and complete work — all in one place.</p>
+    <div class="hero-cta">
+      <button class="btn btn-primary btn-lg" onclick="showPage('signup')">Start for free →</button>
+      <button class="btn btn-ghost btn-lg" onclick="showPage('login')">Sign in</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Feature Complete</div></div>
+      <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Tasks Supported</div></div>
+      <div class="stat"><div class="stat-num">0ms</div><div class="stat-label">Latency (local)</div></div>
+    </div>
+  </div>
+  <section class="features-section">
+    <div class="section-label">Features</div>
+    <h2 class="section-title">Everything you need</h2>
+    <p class="section-sub">A complete task management system with analytics, categories, priorities, and more.</p>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">🔐</div><h3>Secure Auth</h3><p>Email verification, password hashing, and persistent sessions keep your data safe.</p></div>
+      <div class="feature-card"><div class="feature-icon">📊</div><h3>Dashboard</h3><p>Visual analytics showing your productivity, completion rates, and task breakdown.</p></div>
+      <div class="feature-card"><div class="feature-icon">🏷️</div><h3>Categories</h3><p>Organize tasks into custom categories with color coding for quick identification.</p></div>
+      <div class="feature-card"><div class="feature-icon">⚡</div><h3>Priority Levels</h3><p>Mark tasks as high, medium, or low priority to focus on what matters most.</p></div>
+      <div class="feature-card"><div class="feature-icon">📅</div><h3>Due Dates</h3><p>Set deadlines and get visual warnings for overdue or upcoming tasks.</p></div>
+      <div class="feature-card"><div class="feature-icon">🔍</div><h3>Smart Search</h3><p>Instantly find any task by title, category, or description with live filtering.</p></div>
+    </div>
+  </section>
+  <footer class="landing-footer">© 2025 TaskFlow — CE302 Software Engineering, All rights reserved.</footer>
+</div>
+
+<div id="page-signup" class="page">
+  <div class="auth-wrapper">
+    <div class="auth-side">
+      <div class="auth-side-content">
+        <h2>Join thousands<br>getting things done.</h2>
+        <p>TaskFlow helps you organize your work, meet deadlines, and stay on top of priorities — all with a beautiful interface.</p>
+        <div class="auth-side-quote">"The key is not to prioritize what's on your schedule, but to schedule your priorities." — Stephen Covey</div>
+      </div>
+    </div>
+    <div class="auth-form-side">
+      <div class="auth-box">
+        <div class="auth-logo">⚡ TaskFlow</div>
+        <h1>Create account</h1>
+        <p class="subtitle">Sign up to start managing your tasks</p>
+        <div id="signup-alert" class="alert"></div>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="signup-name" placeholder="John Doe"/>
+          <div class="form-error" id="err-signup-name"></div>
+        </div>
+        <div class="form-group">
+          <label>Email address</label>
+          <input type="email" id="signup-email" placeholder="you@email.com"/>
+          <div class="form-error" id="err-signup-email"></div>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-with-icon">
+            <input type="password" id="signup-pass" placeholder="Min. 8 characters"/>
+            <span class="input-icon" onclick="togglePass('signup-pass',this)">👁</span>
+          </div>
+          <div class="form-error" id="err-signup-pass"></div>
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <div class="input-with-icon">
+            <input type="password" id="signup-pass2" placeholder="Repeat password"/>
+            <span class="input-icon" onclick="togglePass('signup-pass2',this)">👁</span>
+          </div>
+          <div class="form-error" id="err-signup-pass2"></div>
+        </div>
+        <button class="btn btn-primary btn-block btn-lg mt-3" id="signup-btn" onclick="handleSignup()">Create account</button>
+        <div class="auth-switch mt-3">Already have an account? <button class="form-link" onclick="showPage('login')">Sign in</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-verify" class="page">
+  <div class="auth-wrapper">
+    <div class="auth-side">
+      <div class="auth-side-content">
+        <h2>Check your email.</h2>
+        <p>We've sent a 6-digit verification code to your email address. Enter it below to confirm your account.</p>
+        <div class="auth-side-quote">For demo purposes, the code is shown in a popup notification after signup — simulating a real email delivery.</div>
+      </div>
+    </div>
+    <div class="auth-form-side">
+      <div class="auth-box">
+        <div class="auth-logo">⚡ TaskFlow</div>
+        <h1>Verify your email</h1>
+        <p class="subtitle">Enter the 6-digit code sent to <strong id="verify-email-display"></strong></p>
+        <div id="verify-alert" class="alert"></div>
+        <div class="code-inputs">
+          <input class="code-input" maxlength="1" id="c0" oninput="codeNav(0)" onkeydown="codeBack(event,0)"/>
+          <input class="code-input" maxlength="1" id="c1" oninput="codeNav(1)" onkeydown="codeBack(event,1)"/>
+          <input class="code-input" maxlength="1" id="c2" oninput="codeNav(2)" onkeydown="codeBack(event,2)"/>
+          <input class="code-input" maxlength="1" id="c3" oninput="codeNav(3)" onkeydown="codeBack(event,3)"/>
+          <input class="code-input" maxlength="1" id="c4" oninput="codeNav(4)" onkeydown="codeBack(event,4)"/>
+          <input class="code-input" maxlength="1" id="c5" oninput="codeNav(5)" onkeydown="codeBack(event,5)"/>
+        </div>
+        <button class="btn btn-primary btn-block btn-lg" id="verify-btn" onclick="handleVerify()">Verify email</button>
+        <div class="resend-row mt-2">Didn't receive it? <button class="form-link" onclick="resendCode()" id="resend-btn">Resend code</button> <span id="resend-timer"></span></div>
+        <div class="auth-switch mt-3"><button class="form-link" onclick="showPage('signup')">← Back to sign up</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-login" class="page">
+  <div class="auth-wrapper">
+    <div class="auth-side">
+      <div class="auth-side-content">
+        <h2>Welcome back.</h2>
+        <p>Your tasks are waiting. Sign in and pick up right where you left off — all your data is saved and ready.</p>
+        <div class="auth-side-quote">"Focus on being productive instead of busy." — Tim Ferriss</div>
+      </div>
+    </div>
+    <div class="auth-form-side">
+      <div class="auth-box">
+        <div class="auth-logo">⚡ TaskFlow</div>
+        <h1>Welcome back</h1>
+        <p class="subtitle">Sign in to your account</p>
+        <div id="login-alert" class="alert"></div>
+        <div class="form-group">
+          <label>Email address</label>
+          <input type="email" id="login-email" placeholder="you@email.com" onkeydown="if(event.key==='Enter')handleLogin()"/>
+          <div class="form-error" id="err-login-email"></div>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-with-icon">
+            <input type="password" id="login-pass" placeholder="Your password" onkeydown="if(event.key==='Enter')handleLogin()"/>
+            <span class="input-icon" onclick="togglePass('login-pass',this)">👁</span>
+          </div>
+          <div class="form-error" id="err-login-pass"></div>
+        </div>
+        <div class="form-footer">
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--text2)">
+            <input type="checkbox" id="remember-me" style="accent-color:var(--accent)"/> Remember me
+          </label>
+          <button class="form-link" onclick="showPage('forgot')">Forgot password?</button>
+        </div>
+        <button class="btn btn-primary btn-block btn-lg" id="login-btn" onclick="handleLogin()">Sign in</button>
+        <div class="auth-switch mt-3">Don't have an account? <button class="form-link" onclick="showPage('signup')">Sign up</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-forgot" class="page">
+  <div class="auth-wrapper">
+    <div class="auth-side">
+      <div class="auth-side-content">
+        <h2>Reset your password.</h2>
+        <p>Enter your email and we'll send you a reset link. For this demo, the new password is shown directly after reset.</p>
+      </div>
+    </div>
+    <div class="auth-form-side">
+      <div class="auth-box">
+        <div class="auth-logo">⚡ TaskFlow</div>
+        <h1>Forgot password?</h1>
+        <p class="subtitle">We'll send you a reset code</p>
+        <div id="forgot-alert" class="alert"></div>
+        <div class="form-group">
+          <label>Email address</label>
+          <input type="email" id="forgot-email" placeholder="you@email.com"/>
+          <div class="form-error" id="err-forgot-email"></div>
+        </div>
+        <button class="btn btn-primary btn-block btn-lg mt-3" onclick="handleForgot()">Send reset code</button>
+        <div id="reset-form" style="display:none">
+          <div class="divider">Enter reset code</div>
+          <div class="code-inputs">
+            <input class="code-input" maxlength="1" id="r0" oninput="codeNavR(0)" onkeydown="codeBackR(event,0)"/>
+            <input class="code-input" maxlength="1" id="r1" oninput="codeNavR(1)" onkeydown="codeBackR(event,1)"/>
+            <input class="code-input" maxlength="1" id="r2" oninput="codeNavR(2)" onkeydown="codeBackR(event,2)"/>
+            <input class="code-input" maxlength="1" id="r3" oninput="codeNavR(3)" onkeydown="codeBackR(event,3)"/>
+            <input class="code-input" maxlength="1" id="r4" oninput="codeNavR(4)" onkeydown="codeBackR(event,4)"/>
+            <input class="code-input" maxlength="1" id="r5" oninput="codeNavR(5)" onkeydown="codeBackR(event,5)"/>
+          </div>
+          <div class="form-group">
+            <label>New Password</label>
+            <div class="input-with-icon">
+              <input type="password" id="new-pass" placeholder="New password"/>
+              <span class="input-icon" onclick="togglePass('new-pass',this)">👁</span>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block mt-2" onclick="handleReset()">Reset password</button>
+        </div>
+        <div class="auth-switch mt-3"><button class="form-link" onclick="showPage('login')">← Back to sign in</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-app" class="page">
+  <div class="app-layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">⚡ TaskFlow</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section-label">Main</div>
+        <div class="nav-item active" onclick="switchView('dashboard',this)">
+          <span class="nav-icon">📊</span> Dashboard
+        </div>
+        <div class="nav-item" onclick="switchView('tasks',this)">
+          <span class="nav-icon">✅</span> All Tasks
+          <span class="nav-badge" id="tasks-badge">0</span>
+        </div>
+        <div class="nav-section-label">Filters</div>
+        <div class="nav-item" onclick="switchView('tasks',this);filterByStatus('pending')">
+          <span class="nav-icon">🕐</span> Pending
+        </div>
+        <div class="nav-item" onclick="switchView('tasks',this);filterByStatus('completed')">
+          <span class="nav-icon">✔️</span> Completed
+        </div>
+        <div class="nav-item" onclick="switchView('tasks',this);filterByStatus('overdue')">
+          <span class="nav-icon">🔴</span> Overdue
+        </div>
+        <div class="nav-section-label">Settings</div>
+        <div class="nav-item" onclick="switchView('settings',this)">
+          <span class="nav-icon">⚙️</span> Settings
+        </div>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-card">
+          <div class="user-avatar" id="user-avatar-sidebar">?</div>
+          <div class="user-info">
+            <div class="user-name" id="user-name-sidebar">—</div>
+            <div class="user-email" id="user-email-sidebar">—</div>
+          </div>
+          <button class="user-menu-btn" onclick="confirmLogout()" title="Sign out">⏏</button>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main-content">
+      <div class="top-bar">
+        <button class="hamburger" onclick="toggleSidebar()">☰</button>
+        <div class="top-bar-title" id="top-bar-title">Dashboard</div>
+        <button class="btn btn-primary btn-sm" onclick="openTaskModal()">+ New Task</button>
+      </div>
+      <div class="content-area">
+        <div id="view-dashboard" class="active">
+          <div class="stats-grid" id="stats-grid">
+            <div class="stat-card">
+              <div class="stat-card-accent" style="background:var(--accent)"></div>
+              <div class="stat-card-label">Total Tasks</div>
+              <div class="stat-card-value" id="stat-total">0</div>
+              <div class="stat-card-sub">All time</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-accent" style="background:var(--green)"></div>
+              <div class="stat-card-label">Completed</div>
+              <div class="stat-card-value text-green" id="stat-done">0</div>
+              <div class="stat-card-sub" id="stat-done-pct">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-accent" style="background:var(--orange)"></div>
+              <div class="stat-card-label">In Progress</div>
+              <div class="stat-card-value text-orange" id="stat-pending">0</div>
+              <div class="stat-card-sub">Active tasks</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-accent" style="background:var(--red)"></div>
+              <div class="stat-card-label">Overdue</div>
+              <div class="stat-card-value text-red" id="stat-overdue">0</div>
+              <div class="stat-card-sub">Past due date</div>
+            </div>
+          </div>
+          <div class="dash-grid">
+            <div>
+              <div class="dash-card mb-3">
+                <div class="dash-card-header">
+                  <h3>Weekly Activity</h3>
+                  <span class="text-xs text-muted">Tasks completed per day</span>
+                </div>
+                <div class="dash-card-body">
+                  <div class="mini-chart" id="weekly-chart"></div>
+                  <div style="height:24px"></div>
+                </div>
+              </div>
+              <div class="dash-card">
+                <div class="dash-card-header"><h3>Priority Breakdown</h3></div>
+                <div class="dash-card-body" id="priority-breakdown"></div>
+              </div>
+            </div>
+            <div>
+              <div class="dash-card mb-3">
+                <div class="dash-card-header">
+                  <h3>Recent Tasks</h3>
+                  <button class="btn btn-ghost btn-sm" onclick="switchView('tasks',null)">View all</button>
+                </div>
+                <div class="dash-card-body" id="recent-tasks-list"></div>
+              </div>
+              <div class="dash-card">
+                <div class="dash-card-header"><h3>Activity Log</h3></div>
+                <div class="dash-card-body" id="activity-log-list"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="view-tasks">
+          <div class="tasks-toolbar">
+            <div class="search-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="search-input" placeholder="Search tasks..." oninput="renderTasks()"/>
+            </div>
+            <div class="filter-group">
+              <select class="filter-btn" id="filter-status" onchange="renderTasks()">
+                <option value="">All Status</option>
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
+                <option value="overdue">Overdue</option>
+              </select>
+              <select class="filter-btn" id="filter-priority" onchange="renderTasks()">
+                <option value="">All Priority</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+              <select class="filter-btn" id="filter-category" onchange="renderTasks()">
+                <option value="">All Categories</option>
+              </select>
+              <select class="filter-btn" id="sort-tasks" onchange="renderTasks()">
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+                <option value="due">Due Date</option>
+                <option value="priority">Priority</option>
+              </select>
+            </div>
+          </div>
+          <div class="task-list" id="task-list"></div>
+        </div>
+
+        <div id="view-settings">
+          <div class="settings-section">
+            <div class="settings-section-header">Profile</div>
+            <div class="settings-section-body">
+              <div class="settings-row"><span class="settings-row-label">Name</span><span class="settings-row-value" id="set-name">—</span></div>
+              <div class="settings-row"><span class="settings-row-label">Email</span><span class="settings-row-value" id="set-email">—</span></div>
+              <div class="settings-row"><span class="settings-row-label">Member since</span><span class="settings-row-value" id="set-since">—</span></div>
+            </div>
+          </div>
+          <div class="settings-section">
+            <div class="settings-section-header">Categories</div>
+            <div class="settings-section-body" id="categories-list"></div>
+            <div style="padding:0 20px 16px;display:flex;gap:8px">
+              <input type="text" id="new-cat-input" placeholder="Category name…" style="flex:1;padding:9px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius2);color:var(--text);font-size:13px;outline:none"/>
+              <button class="btn btn-primary btn-sm" onclick="addCategory()">Add</button>
+            </div>
+          </div>
+          <div class="settings-section">
+            <div class="settings-section-header">Danger Zone</div>
+            <div class="settings-section-body">
+              <div class="settings-row">
+                <span class="settings-row-label">Clear all tasks</span>
+                <button class="btn btn-danger btn-sm" onclick="clearAllTasks()">Clear tasks</button>
+              </div>
+              <div class="settings-row">
+                <span class="settings-row-label">Sign out</span>
+                <button class="btn btn-ghost btn-sm" onclick="confirmLogout()">Sign out</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="task-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modal-title">New Task</h2>
+      <button class="modal-close" onclick="closeModal('task-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Task Title *</label>
+        <input type="text" id="task-title-input" placeholder="What needs to be done?"/>
+        <div class="form-error" id="err-task-title"></div>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" id="task-desc-input" placeholder="Optional description…"/>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group">
+          <label>Priority</label>
+          <select class="filter-btn" id="task-priority-input" style="width:100%;padding:10px 12px;border-radius:var(--radius2)">
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+            <option value="low">Low</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select class="filter-btn" id="task-category-input" style="width:100%;padding:10px 12px;border-radius:var(--radius2)"></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Due Date</label>
+        <input type="date" id="task-due-input" style="color-scheme:dark"/>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('task-modal')">Cancel</button>
+      <button class="btn btn-primary" id="save-task-btn" onclick="saveTask()">Save Task</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="confirm-modal">
+  <div class="modal" style="max-width:380px">
+    <div class="modal-header"><h2 id="confirm-title">Confirm</h2><button class="modal-close" onclick="closeModal('confirm-modal')">✕</button></div>
+    <div class="modal-body"><p id="confirm-msg" style="color:var(--text2);font-size:14px;line-height:1.6"></p></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('confirm-modal')">Cancel</button>
+      <button class="btn btn-danger" id="confirm-ok-btn">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBFGLPPOuMSHh0PBHAVfQDoedVuAdseqbc",
+    authDomain: "taskflow-e55d1.firebaseapp.com",
+    projectId: "taskflow-e55d1",
+    storageBucket: "taskflow-e55d1.firebasestorage.app",
+    messagingSenderId: "645960015256",
+    appId: "1:645960015256:web:0dcbec4de2ae2d93ef1fed",
+    measurementId: "G-7R94JBMNFN"
+  };
+
+  // Firebase'i başlat
+  const app = initializeApp(firebaseConfig);
+  
+  // app.js'den erişebilmek için window objesine aktar
+  window.auth = getAuth(app);
+  window.db = getFirestore(app);
+</script>
+
+<script type="module" src="app.js"></script>
+</body>
+
+<script type="module" src="app.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
